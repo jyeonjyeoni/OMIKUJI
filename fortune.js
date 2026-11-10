@@ -16,9 +16,6 @@ function visitKey() { return `omamori:${db.version}:${charm.demo ? 'demo' : 'cha
 function render(result) {
   const day = new Date(`${result.date}T12:00:00+09:00`);
   $('date-label').textContent = new Intl.DateTimeFormat('ko-KR', { timeZone: 'Asia/Seoul', year:'numeric', month:'long', day:'numeric', weekday:'long' }).format(day);
-  $('paper-date').dateTime = result.date;
-  $('paper-date').textContent = new Intl.DateTimeFormat('ja-JP-u-ca-japanese', { timeZone:'Asia/Seoul', era:'long', year:'numeric', month:'long', day:'numeric' }).format(day);
-  $('paper-date').lang = 'ja';
   $('fortune-number').textContent = `第${japaneseNumber(result.main.number)}番`;
   $('grade').textContent = result.grade.label;
   $('grade-name').textContent = result.grade.name;
@@ -47,7 +44,6 @@ async function prepare() {
   $('open-fortune').disabled = true;
   try {
     charm = parseCharm(location.search);
-    $('demo-note').hidden = !charm.demo;
     if (!globalThis.crypto?.subtle) throw new Error('SECURE_CONTEXT');
     if (!db) {
       if (location.protocol === 'file:') {

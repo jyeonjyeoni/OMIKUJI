@@ -20,6 +20,15 @@
   <script defer src="browser.js"></script>
 </head>
 <body>
+  <svg class="ink-defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <filter id="ink" x="-6%" y="-6%" width="112%" height="112%">
+      <feTurbulence type="fractalNoise" baseFrequency=".04 .06" numOctaves="2" seed="7" result="warp"/>
+      <feDisplacementMap in="SourceGraphic" in2="warp" scale="2.2" result="edge"/>
+      <feTurbulence type="fractalNoise" baseFrequency="1.15" numOctaves="1" seed="4" result="grain"/>
+      <feColorMatrix in="grain" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -3.4 2.95" result="worn"/>
+      <feComposite in="edge" in2="worn" operator="in"/>
+    </filter>
+  </svg>
   <a class="skip" href="#main">운세로 바로가기</a>
   <header class="site-header"><a class="wordmark" href="index.html" aria-label="오마모리 체험 첫 화면"><span class="brand-seal" lang="ja">守</span> OMAMORI</a><span class="header-note">하루에 한 번, 작은 의식</span></header>
   <main id="main">
@@ -30,17 +39,20 @@
       <p id="error-message"></p><button id="retry" type="button">다시 불러오기</button><a id="demo-link" href="?demo=1" hidden>체험용 운세 열기</a>
     </section>
     <section id="entry" class="entry" aria-label="오늘의 운세 열기" hidden>
-      <button id="open-fortune" class="folded-paper" type="button" aria-label="접힌 종이를 펼쳐 오늘의 운세 열기">
-        <span class="fold-top" aria-hidden="true"></span><span class="fold-title" lang="ja">今日の御神籤</span>
-        <span class="fold-seal" lang="ja" aria-hidden="true">御守</span><span class="fold-caption">마음을 담아, 펼치기 <span aria-hidden="true">↗</span></span>
-      </button>
+      <div class="fold-stack">
+        <button id="open-fortune" class="folded-paper" type="button" aria-label="접힌 종이를 펼쳐 오늘의 운세 열기">
+          <span class="fold-title" lang="ja">今日の御神籤</span>
+          <span class="fold-seal stamp" lang="ja" aria-hidden="true">御守</span>
+          <span class="fold-caption">마음을 담아 펼치기</span>
+        </button>
+      </div>
       <p class="entry-copy">바라는 일을 조용히 떠올려 보세요.<br>오늘의 한 문장이 당신을 기다립니다.</p>
       <span class="entry-japanese" lang="ja">一日一籤</span>
     </section>
     <article id="fortune" class="fortune paper" aria-label="오늘의 오미쿠지 결과" hidden>
       <div class="paper-inner">
         <div class="paper-title" lang="ja">御 神 籤</div>
-        <div class="fortune-heading"><span id="fortune-number" class="fortune-number"></span><h2 id="grade" lang="ja" tabindex="-1"></h2><span id="grade-name" class="grade-name"></span><span class="result-seal" lang="ja" aria-hidden="true">開運<br>招福</span></div>
+        <div class="fortune-heading"><span id="fortune-number" class="fortune-number"></span><h2 id="grade" lang="ja" tabindex="-1"></h2><span id="grade-name" class="grade-name"></span><span class="result-seal stamp" lang="ja" aria-hidden="true">開運<br>招福</span></div>
         <h3 id="fortune-title" class="fortune-title" lang="ja"></h3><p id="poem" class="poem"></p>
         <section class="guidance" aria-labelledby="guidance-title"><h3 id="guidance-title"><span lang="ja">御告げ</span> 오늘의 가르침</h3><p id="guidance"></p></section>
         <dl id="primary-topics" class="topics"></dl>
@@ -52,6 +64,6 @@
     <div class="utility"><label><input id="reduce-motion" type="checkbox"> 움직임 줄이기</label></div>
     <noscript><p class="error-panel">운세를 펼치려면 브라우저에서 JavaScript를 켜 주세요.</p></noscript>
   </main>
-  <footer class="site-footer"><p>부적에 담은 마음이, 하루에 닿기를.</p><details><summary>오미쿠지에 대하여</summary><p>오마모리는 몸에 지니는 부적, 오미쿠지는 운세를 읽는 제비입니다. 이곳의 글은 전통에서 영감을 받아 새로 쓴 창작 콘텐츠이며, 특정 신사의 공식 운세가 아닙니다. 가벼운 하루의 조언으로 읽어 주세요.</p><p>같은 부적은 같은 날 같은 운세를 전합니다. 방문 표시와 움직임 설정은 이 브라우저에만 저장합니다. 개인정보 입력과 외부 분석 도구는 사용하지 않습니다.</p></details><span class="footer-brand">OMAMORI · 御神籤</span></footer>
+  <footer class="site-footer"><p>부적에 담은 마음이, 하루에 닿기를.</p><details><summary>오미쿠지에 대하여</summary><p>오마모리는 몸에 지니는 부적, 오미쿠지는 운세를 읽는 제비입니다. 이곳의 글은 전통에서 영감을 받아 새로 쓴 창작 콘텐츠이며, 특정 신사의 공식 운세가 아닙니다. 가벼운 하루의 조언으로 읽어 주세요.</p><p>같은 부적은 같은 날 같은 운세를 전합니다. 방문 표시와 움직임 설정은 이 브라우저에만 저장합니다. 개인정보 입력과 외부 분석 도구는 사용하지 않습니다.</p></details><span class="footer-brand">OMAMORI <span lang="ja">御神籤</span></span></footer>
 </body>
 </html>

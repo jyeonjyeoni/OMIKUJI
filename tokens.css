@@ -12,8 +12,12 @@
   --color-rule: oklch(76% .045 80);
   --color-rule-soft: oklch(84% .033 80);
   --color-focus: oklch(70% .13 65);
+  --color-ground-glow: oklch(33% .018 128);
+  --color-paper-light: oklch(96.5% .02 88);
+  --color-crease: oklch(28% .018 70 / .09);
   --color-shadow: oklch(10% .014 132 / .3);
-  --font-display: 'Yu Mincho', 'Hiragino Mincho ProN', 'Batang', 'Noto Serif CJK KR', serif;
+  --color-shadow-near: oklch(10% .014 132 / .22);
+  --font-display: 'Yu Mincho', 'Hiragino Mincho ProN', 'AppleMyungjo', 'Batang', 'Noto Serif CJK KR', serif;
   --font-body: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans CJK KR', sans-serif;
   --space-xs: 4px; --space-sm: 8px; --space-md: 16px; --space-lg: 24px; --space-xl: 32px; --space-2xl: 48px; --space-3xl: 64px;
   --ease-out: cubic-bezier(.16,1,.3,1); --ease-in: cubic-bezier(.7,0,.84,0); --ease-in-out: cubic-bezier(.65,0,.35,1);
