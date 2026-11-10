@@ -94,7 +94,7 @@ The canonical palette uses OKLCH values from `tokens.css`; preserve that color s
 
 ## Typography
 
-Display and Japanese ornament use the local Mincho stack; body and controls use the local Korean sans stack recorded above. No remote font is required.
+Three self-hosted subset fonts in `assets/fonts/` come first in every stack: AaKuangXiaTi for the red fortune grade only, XianSheng GaiZenMeChengNi for all other kanji and kana (limited by `unicode-range`), and GangwonEduAll Bold for hangul, Latin and digits. The local Mincho and Korean sans stacks recorded above remain as fallbacks. No remote font is required. The kanji subset covers JIS level-1 kanji; a character outside it falls back to the system font.
 
 The fortune grade is the largest mark (104px, 92px on mobile). The page heading is 26px Mincho, the paper title 34px, the fortune title 23px, and topic kanji 21px. Main guidance is 15px at 1.9 line-height; topic reading is 14px at 1.85. The centered poem uses 17px Mincho at 2 line-height and a 30ch maximum width. Labels are typically 11–13px. Vertical writing is confined to the folded sheet's Japanese title and seal.
 
@@ -128,7 +128,7 @@ All interactive elements retain the global 3px focus outline with 6px offset. Bu
 ## Do's and Don'ts
 
 - Do preserve the single-sheet reveal and four visible plus four expandable topics.
-- Do use the existing local font stacks and horizontal Korean reading.
+- Do use the three self-hosted fonts with the local stacks as fallback, and horizontal Korean reading.
 - Do preserve visible keyboard focus and both reduced-motion mechanisms.
 - Don't replace the pinned paper, ink and vermilion direction.
 - Don't turn the eight topic readings into a competing card grid.
