@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#242923">
+  <meta name="description" content="하루에 한 번, 나의 부적이 전하는 작은 가르침. 오늘의 오미쿠지를 펼쳐보세요.">
+  <title>御神籤 — 오늘의 오미쿠지</title>
+  <link rel="icon" href="assets/seal.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    window.addEventListener('load', function () {
+      if (!window.omamoriStarted) {
+        var status = document.getElementById('status');
+        status.hidden = false;
+        status.textContent = '운세 실행 파일을 열지 못했어요. ZIP 전체를 압축 해제한 뒤 index.html을 브라우저에서 다시 열어 주세요. 게시한 사이트라면 browser.js가 함께 업로드되었는지 확인해 주세요.';
+      }
+    });
+  </script>
+  <script defer src="browser.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">운세로 바로가기</a>
+  <header class="site-header"><a class="wordmark" href="index.html" aria-label="오마모리 체험 첫 화면"><span class="brand-seal" lang="ja">守</span> OMAMORI</a><span class="header-note">하루에 한 번, 작은 의식</span></header>
+  <main id="main">
+    <div class="page-heading"><h1>오늘의 오미쿠지</h1><p id="date-label">잠시 마음을 고르고</p></div>
+    <p class="demo-note" id="demo-note" hidden>체험용 오미쿠지입니다. 실제 부적은 NFC로 태그해 주세요.</p>
+    <p id="status" class="status" role="status" aria-live="polite">오늘의 종이를 준비하고 있어요.</p>
+    <section id="error" class="error-panel" aria-labelledby="error-title" hidden>
+      <span class="error-mark" lang="ja" aria-hidden="true">結</span><h2 id="error-title">잠시 매듭을 고를 시간</h2>
+      <p id="error-message"></p><button id="retry" type="button">다시 불러오기</button><a id="demo-link" href="?demo=1" hidden>체험용 운세 열기</a>
+    </section>
+    <section id="entry" class="entry" aria-label="오늘의 운세 열기" hidden>
+      <button id="open-fortune" class="folded-paper" type="button" aria-label="접힌 종이를 펼쳐 오늘의 운세 열기">
+        <span class="fold-top" aria-hidden="true"></span><span class="fold-title" lang="ja">今日の御神籤</span>
+        <span class="fold-seal" lang="ja" aria-hidden="true">御守</span><span class="fold-caption">마음을 담아, 펼치기 <span aria-hidden="true">↗</span></span>
+      </button>
+      <p class="entry-copy">바라는 일을 조용히 떠올려 보세요.<br>오늘의 한 문장이 당신을 기다립니다.</p>
+      <span class="entry-japanese" lang="ja">一日一籤</span>
+    </section>
+    <article id="fortune" class="fortune paper" aria-label="오늘의 오미쿠지 결과" hidden>
+      <div class="paper-inner">
+        <div class="paper-top"><span lang="ja">一日一籤</span><time id="paper-date"></time><span lang="ja">心を込めて</span></div>
+        <div class="paper-title" lang="ja">御 神 籤</div>
+        <div class="fortune-heading"><span id="fortune-number" class="fortune-number"></span><h2 id="grade" lang="ja" tabindex="-1"></h2><span id="grade-name" class="grade-name"></span><span class="result-seal" lang="ja" aria-hidden="true">開運<br>招福</span></div>
+        <h3 id="fortune-title" class="fortune-title" lang="ja"></h3><p id="poem" class="poem"></p>
+        <section class="guidance" aria-labelledby="guidance-title"><h3 id="guidance-title"><span lang="ja">御告げ</span> 오늘의 가르침</h3><p id="guidance"></p></section>
+        <dl id="primary-topics" class="topics"></dl>
+        <details id="more-topics" class="more-topics"><summary><span class="when-closed">나머지 운세 펼쳐보기</span><span class="when-open">나머지 운세 접기</span><span class="plus" aria-hidden="true"></span></summary><dl id="secondary-topics" class="topics"></dl></details>
+        <div class="paper-bottom"><span class="closing-flower" aria-hidden="true">✳</span><p lang="ja">今日も良き一日を。</p><span>오늘도 평온한 하루가 되기를.</span></div>
+      </div>
+    </article>
+    <p id="daily-note" class="daily-note" hidden>이 운세는 오늘 하루 동안 머무릅니다.<br>새로운 종이는 한국 시간 자정에 찾아옵니다.</p>
+    <div class="utility"><label><input id="reduce-motion" type="checkbox"> 움직임 줄이기</label></div>
+    <noscript><p class="error-panel">운세를 펼치려면 브라우저에서 JavaScript를 켜 주세요.</p></noscript>
+  </main>
+  <footer class="site-footer"><p>부적에 담은 마음이, 하루에 닿기를.</p><details><summary>오미쿠지에 대하여</summary><p>오마모리는 몸에 지니는 부적, 오미쿠지는 운세를 읽는 제비입니다. 이곳의 글은 전통에서 영감을 받아 새로 쓴 창작 콘텐츠이며, 특정 신사의 공식 운세가 아닙니다. 가벼운 하루의 조언으로 읽어 주세요.</p><p>같은 부적은 같은 날 같은 운세를 전합니다. 방문 표시와 움직임 설정은 이 브라우저에만 저장합니다. 개인정보 입력과 외부 분석 도구는 사용하지 않습니다.</p></details><span class="footer-brand">OMAMORI · 御神籤</span></footer>
+</body>
+</html>

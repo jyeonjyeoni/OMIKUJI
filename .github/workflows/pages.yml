@@ -1,0 +1,45 @@
+name: Verify and deploy OMIKUJI
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check committed browser bundle and data
+        run: npm test
+      - name: Rebuild and verify reproducibility
+        run: |
+          npm run build
+          git diff --exit-code -- browser.js
+      - name: Prepare public files
+        run: |
+          mkdir -p public
+          cp index.html style.css tokens.css browser.js fortunes.json .nojekyll public/
+          cp -R assets v1 public/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
