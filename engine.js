@@ -17,11 +17,11 @@ export function parseCharm(search) {
   return { id: ids[0], demo: false };
 }
 export function validateDatabase(db) {
-  const expected = ['daikichi', 'kichi', 'chukichi', 'shokichi', 'suekichi', 'kyo'];
+  const expected = ['daikichi', 'kichi', 'chukichi', 'shokichi', 'suekichi', 'kyo', 'daikyo'];
   const seen = new Set(), numbers = new Set();
   const requireText = value => { if (typeof value !== 'string' || !value.trim()) throw new Error('INVALID_DATA'); };
   const unique = id => { requireText(id); if (seen.has(id)) throw new Error('INVALID_DATA'); seen.add(id); };
-  if (db?.version !== 'v2' || !Array.isArray(db.grades) || db.grades.length !== 6 || !Array.isArray(db.main)) throw new Error('INVALID_DATA');
+  if (db?.version !== 'v2' || !Array.isArray(db.grades) || db.grades.length !== expected.length || !Array.isArray(db.main)) throw new Error('INVALID_DATA');
   if (db.grades.reduce((sum,g) => sum + g.weight, 0) !== 100) throw new Error('INVALID_DATA');
   for (const [i,g] of db.grades.entries()) {
     if (g.id !== expected[i] || !Number.isInteger(g.weight) || g.weight <= 0) throw new Error('INVALID_DATA');

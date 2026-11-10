@@ -14,6 +14,15 @@ sources = read(ROOT / 'content/topics-source.json')
 motifs = read(ROOT / 'content/main-source.json')
 grade_ids = [g['id'] for g in db['grades']]
 
+# 大凶 (daikyo) is new in v2: v1 stays six grades. One point of weight moves from 末吉.
+daikyo = read(ROOT / 'content/daikyo-source.json')
+next(g for g in db['grades'] if g['id'] == 'suekichi')['weight'] -= daikyo['grade']['weight']
+db['grades'].append(daikyo['grade'])
+for i, (title, poem, guidance) in enumerate(daikyo['main']):
+    db['main'].append({'id': f'daikyo-{i+1:03}', 'grade':'daikyo', 'number':241 + i, 'title':title, 'poem':poem, 'guidance':guidance})
+for topic, texts in daikyo['topics'].items():
+    db['topics'][topic]['daikyo'] = [{'id': f'{topic}-daikyo-{i+1:03}', 'text':text} for i, text in enumerate(texts)]
+
 # Each register has nine alternatives; all are gentle and never promise outcomes.
 tones = [
  ['준비한 마음을 실제 행동으로 옮기기 좋은 흐름이로다.', '정성을 들인 만큼 뜻을 펼쳐 볼 여지가 있으리라.', '기쁜 마음을 구체적인 실천으로 이어 볼 때로다.', '이미 갖춘 힘을 믿고 한 걸음 내디뎌 볼 것.', '좋은 기회도 세심한 행동을 만날 때 오래 남으리라.', '반가운 흐름 속에서 감사와 분별을 함께 지킬 것.', '자신의 몫을 다하면 좋은 경험을 넓힐 수 있으리라.', '일이 잘 풀릴수록 곁의 작은 도움도 기억할 것.', '넉넉한 기운을 나누되 무리한 약속은 더하지 말 것.'],
@@ -32,6 +41,8 @@ for topic, rows in sources.items():
             chosen = action if grade_index < 4 else caution
             text = f'{scene}. {chosen} {tones[grade_index][i % 9]}'
             db['topics'][topic][gid].append({'id': f'{topic}-{gid}-{i+4:03}', 'text':text})
+    for i, (scene, action, caution) in enumerate(rows):
+        db['topics'][topic]['daikyo'].append({'id': f'{topic}-daikyo-{i+4:03}', 'text':f"{scene}. {caution} {daikyo['tones'][i % 9]}"})
 
 assert len(motifs) == 32
 for i, (title, scene, readings, action, caution) in enumerate(motifs):
@@ -45,18 +56,26 @@ for i, (title, scene, readings, action, caution) in enumerate(motifs):
             'guidance': f'{guidance} {tones[grade_index][(i+3) % 9]}'
         })
 
+    db['main'].append({
+        'id': f'daikyo-{i+9:03}', 'grade':'daikyo', 'number':249 + i,
+        'title':title, 'poem':f"{scene} {daikyo['readings'][i]}",
+        'guidance': f"{caution} {daikyo['tones'][(i+3) % 9]}"
+    })
+
+grade_ids.append('daikyo')
 main = db['main']
 messages = [m for topic in db['topics'].values() for pool in topic.values() for m in pool]
-assert len(main)==240 and len(messages)==1440
-assert len({m['id'] for m in main+messages})==1680
-assert len({m['number'] for m in main})==240
-assert len({m['poem'] for m in main})==240
-assert len({m['text'] for m in messages})==1440
-assert len({m['guidance'] for m in main})==240
+assert len(main)==280 and len(messages)==1680
+assert len({m['id'] for m in main+messages})==1960
+assert len({m['number'] for m in main})==280
+assert len({m['poem'] for m in main})==280
+assert len({m['text'] for m in messages})==1680
+assert len({m['guidance'] for m in main})==280
+assert sum(g['weight'] for g in db['grades'])==100
 for g in grade_ids:
     assert sum(m['grade']==g for m in main)==40
     assert all(len(topic[g])==30 for topic in db['topics'].values())
 for old in base['main']:
     assert next(m for m in main if m['id']==old['id'])==old
 (ROOT/'fortunes.json').write_text(json.dumps(db,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-print('v2: 240 main fortunes + 1,440 topic readings = 1,680 complete entries; v1 preserved.')
+print('v2: 280 main fortunes + 1,680 topic readings = 1,960 complete entries; v1 preserved.')

@@ -12,6 +12,17 @@ function setState(next, message = '') {
   $('status').textContent = message;
   $('status').hidden = !message;
 }
+// Without a charm ID each browser keeps its own random ID, so visitors do not all share one draw.
+function deviceId() {
+  const key = 'omamori:device-id';
+  let id = storage.get(key);
+  if (!/^DEV-[0-9a-f]{20}$/.test(id || '')) {
+    id = 'DEV-' + Array.from(crypto.getRandomValues(new Uint8Array(10)), b => b.toString(16).padStart(2, '0')).join('');
+    storage.set(key, id);
+    if (storage.get(key) !== id) return 'DEMO-OMAMORI'; // Storage blocked: stay stable across reloads.
+  }
+  return id;
+}
 function visitKey() { return `omamori:${db.version}:${charm.demo ? 'demo' : 'charm'}:${charm.id}:opened`; }
 function render(result) {
   const day = new Date(`${result.date}T12:00:00+09:00`);
@@ -44,6 +55,7 @@ async function prepare() {
   $('open-fortune').disabled = true;
   try {
     charm = parseCharm(location.search);
+    if (charm.demo) charm.id = deviceId();
     if (!globalThis.crypto?.subtle) throw new Error('SECURE_CONTEXT');
     if (!db) {
       if (location.protocol === 'file:') {
