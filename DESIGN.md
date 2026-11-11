@@ -112,13 +112,13 @@ Depth comes from two shaded crease lines on the folded slip, a local paper textu
 
 ## Shapes
 
-Paper and controls retain square silhouettes without an authored radius scale. Thin rules outline the paper and divide topics; vermilion seals are solid stamps with paper-colored characters, worn by the inline `#ink` SVG filter. The fold seal rotates −3 degrees and the result seal 6 degrees. A simple plus becomes a minus when additional topics open.
+Paper and controls retain square silhouettes without an authored radius scale. Thin rules outline the paper and divide topics; vermilion seals are solid stamps with paper-colored characters, worn by the inline `#ink` SVG filter. The fold seal rotates −3 degrees and the result seal 6 degrees.
 
 ## Components
 
 - **Folded paper:** the whole sheet is one accessible button. Its double inset rule and two creases establish the physical object. Pointer hover lifts it 5px with a slight tilt over 280ms.
 - **Result paper:** one textured article with an inset border, centered grade, poem, guidance and definition-list topic rows. Reveal animates perspective rotation and vertical scale over 700ms. OS reduced motion and the local checkbox both disable animations and transitions.
-- **Topic disclosure:** a native `details`/`summary` with a 60px minimum summary height, changing Korean label and plus/minus indicator; paper hover uses vermilion.
+- **Topics:** all eight topic rows are shown at once in a single list; there is no disclosure control.
 - **Retry button:** paper-colored rectangular control on the lighter green error panel; hover uses the fold color. Global disabled buttons use .6 opacity and a wait cursor.
 - **Motion checkbox:** native 16px checkbox using the accent color within a 44px minimum label target.
 - **Brand navigation:** a local home link with a fine outlined Mincho seal and tracked wordmark. Footer disclosure remains secondary, with a 44px minimum summary height.
@@ -127,7 +127,7 @@ All interactive elements retain the global 3px focus outline with 6px offset. Bu
 
 ## Do's and Don'ts
 
-- Do preserve the single-sheet reveal and four visible plus four expandable topics.
+- Do preserve the single-sheet reveal and all eight topics visible.
 - Do use the three self-hosted fonts with the local stacks as fallback, and horizontal Korean reading.
 - Do preserve visible keyboard focus and both reduced-motion mechanisms.
 - Don't replace the pinned paper, ink and vermilion direction.
