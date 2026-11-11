@@ -108,14 +108,13 @@ function render(result) {
   $('fortune-title').textContent = result.main.title;
   $('poem').textContent = result.main.poem;
   $('guidance').textContent = result.main.guidance;
-  $('primary-topics').replaceChildren(); $('secondary-topics').replaceChildren();
+  $('topics').replaceChildren();
   TOPICS.forEach(([key, jp, ko], index) => {
     const row = document.createElement('div'); row.className = 'topic';
     const dt = document.createElement('dt'), title = document.createElement('span'), name = document.createElement('small'), dd = document.createElement('dd');
     title.lang = 'ja'; title.textContent = jp; name.textContent = ko; dd.textContent = result.topics[key];
-    dt.append(title,name); row.append(dt,dd); $(index < 4 ? 'primary-topics' : 'secondary-topics').append(row);
+    dt.append(title,name); row.append(dt,dd); $('topics').append(row);
   });
-  $('more-topics').open = false;
 }
 function scheduleRollover() {
   clearTimeout(rolloverTimer);

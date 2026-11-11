@@ -71,15 +71,7 @@ main { max-width: 560px; margin: 12px auto 0; padding: 0 24px; }
 .topic dt span { display: block; font-family: var(--font-display); font-size: 24px; line-height: 1.35; }
 .topic dt small { display: block; font-size: 11px; line-height: 1.5; color: var(--color-muted); }
 .topic dd { margin: 0; font-size: 14px; line-height: 1.85; word-break: keep-all; overflow-wrap: anywhere; }
-.more-topics summary { display: flex; min-height: 60px; justify-content: space-between; align-items: center; gap: 8px; font-size: 13px; color: var(--color-muted); list-style: none; white-space: nowrap; }
-.more-topics[open] summary { border-bottom: 1px solid var(--color-rule-soft); }
 summary::-webkit-details-marker { display: none; }
-.plus { position: relative; width: 12px; height: 12px; }
-.plus::before, .plus::after { content: ''; position: absolute; background: currentColor; }
-.plus::before { left: 0; top: 5px; width: 12px; height: 1px; }
-.plus::after { left: 5px; top: 0; width: 1px; height: 12px; }
-.when-open, details[open] .when-closed, details[open] .plus::after { display: none; }
-details[open] .when-open { display: inline; }
 .paper-bottom { padding-top: 20px; text-align: center; }
 .closing-flower { color: var(--color-accent); font-size: 18px; line-height: 1; }
 .paper-bottom p { margin: 10px 0 2px; font-family: var(--font-display); font-size: 20px; letter-spacing: .08em; }
